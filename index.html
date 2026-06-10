@@ -2,7 +2,7 @@
 {
   "name": "P&I Lead Gen Tracker",
   "schemaVersion": 1,
-  "description": "Self-serve tracker of Pensions & Investments lead-gen programs currently in market. Programs/clients/launch/promo/links come from the 'Pensions & Investments Task Tracker' Smartsheet (Crain Brand = P&I, Status = Launched). White-paper lead counts come from a Jotform analytics export (submissions per form), matched to each program; webinar registrations come from Smartsheet. Sponsored content and videos are ungated (no lead form) and show N/A. Lead-count snapshot: Jun 10, 2026.",
+  "description": "Self-serve tracker of Pensions & Investments lead-gen programs currently in market — white papers and webinars only. Programs/clients/launch/promo/links come from the 'Pensions & Investments Task Tracker' Smartsheet (Crain Brand = P&I, Status = Launched). White-paper lead counts come from a Jotform analytics export (submissions per form), matched to each program; webinar registrants come from Smartsheet. Lead-count snapshot: Jun 10, 2026.",
   "mcpTools": [],
   "mcpServerNames": ["Smartsheet"]
 }
@@ -82,7 +82,7 @@
 
 <div class="banner">
   <span style="font-size:14px">ℹ️</span>
-  <span><strong>Live data.</strong> Programs from the P&amp;I Task Tracker (Smartsheet); white-paper lead counts from the Jotform analytics export (snapshot <strong>Jun 10, 2026</strong>). Sponsored content &amp; videos are ungated (no lead form) → shown as N/A.</span>
+  <span><strong>Live data.</strong> White papers &amp; webinars from the P&amp;I Task Tracker (Smartsheet); white-paper lead counts from the Jotform analytics export (snapshot <strong>Jun 10, 2026</strong>); webinar registrants from Smartsheet.</span>
 </div>
 
 <div class="wrap">
@@ -105,10 +105,7 @@
     <div class="legend">
       <span class="type-pill type-wp">WHITE PAPER</span>
       <span class="type-pill type-web">WEBINAR</span>
-      <span class="type-pill type-sc">SPONSORED</span>
-      <span class="type-pill type-vid">VIDEO</span>
-      <span class="type-pill type-guide">GUIDE</span>
-      <span>· <span class="pending">Pending</span> lead count not in yet · <span class="na">N/A</span> ungated (no lead form)</span>
+      <span>· <span class="pending">Pending</span> lead count not in yet</span>
     </div>
   </div>
 
@@ -124,7 +121,6 @@
     <div class="src-card">
       <div class="row"><div class="dot" style="background:#10b981"></div><div><strong>Programs — from the P&amp;I Task Tracker (Smartsheet).</strong> Clients, launch dates, promo windows, and live links pull from the sheet (Crain Brand = P&amp;I, Status = Launched). Webinar registrations come from the sheet too.</div></div>
       <div class="row"><div class="dot" style="background:#7e22ce"></div><div><strong>White-paper leads — from Jotform.</strong> Counts are matched from the Jotform analytics export (submissions per form). Today this is a manual snapshot; once the P&amp;I Jotform workspace is connected, these update automatically.</div></div>
-      <div class="row"><div class="dot" style="background:#94a3b8"></div><div><strong>N/A items.</strong> Sponsored content and quick-take videos are ungated awareness plays — no lead form, so no lead count.</div></div>
       <div class="row"><div class="dot" style="background:#f59e0b"></div><div><strong>Refresh cadence.</strong> A daily 7:00 AM task refreshes programs from Smartsheet and republishes the page; lead counts refresh when a new Jotform export is provided (or automatically once Jotform is connected).</div></div>
     </div>
   </div>
@@ -142,27 +138,20 @@ document.getElementById('updated').textContent = 'Updated ' + new Date().toLocal
 // leads/views: white papers from Jotform export (submissions/views per form); webinar regs from Smartsheet.
 // leads = number, or null. null + gated (White Paper/Guide) => "Pending"; null + ungated (Sponsored/Video) => "N/A".
 let programs = [
-  { program: "Extension Strategies: Managing Complex Risk to Uncover Greater Reward", client: "Lazard Asset Management", type: "White Paper", launch: "2026-06-10", leads: 4, views: 36, promoStart: "2026-06-10", promoEnd: "2026-08-10", url: "https://www.pionline.com/white-papers/pi-extension-strategies-managing-complex-risk-to-uncover-greater-reward/" },
-  { program: "Flavors of Pension Risk Transfer", client: "Gallagher GBS Financial", type: "White Paper", launch: "2026-06-10", leads: 2, views: 44, promoStart: "2026-06-10", promoEnd: "2026-07-10", url: "https://www.pionline.com/white-papers/pi-flavors-of-pensions-risk-transfer/" },
-  { program: "Thought Leadership White Paper", client: "Allianz Life Insurance", type: "White Paper", launch: "2026-06-08", leads: 4, views: 138, promoStart: "", promoEnd: "", url: "" },
-  { program: "Japan Investment Update", client: "Amova Asset Management", type: "White Paper", launch: "2026-06-08", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-amova-japan-investment-update" },
-  { program: "A New & Expanded Taxonomy for Private Markets", client: "S&P Global Market Intelligence", type: "White Paper", launch: "2026-06-08", leads: 1, views: 78, promoStart: "2026-06-08", promoEnd: "2026-07-07", url: "https://www.pionline.com/white-papers/pi-new-and-expanded-taxonomy-for-private-markets/" },
-  { program: "Thought Leadership White Paper", client: "Fidelity Info Services (FIS)", type: "White Paper", launch: "2026-06-04", leads: 10, views: 452, promoStart: "", promoEnd: "", url: "" },
-  { program: "Private Credit & AI", client: "HarbourVest", type: "White Paper", launch: "2026-04-01", leads: 21, views: 1236, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-harbourvest-private-credit-ai/" },
-  { program: "Quality & Momentum", client: "Federated Hermes", type: "White Paper", launch: "2026-05-14", leads: 7, views: 364, promoStart: "2026-05-01", promoEnd: "2026-06-30", url: "https://pionline.com/white-papers/pi-federated-hermes-quality-momentum/" },
-  { program: "Emerging Markets 2026", client: "Robeco", type: "White Paper", launch: "2026-05-04", leads: 4, views: 120, promoStart: "", promoEnd: "", url: "https://pionline.com/white-papers/pi-robeco-emerging-markets-2026/" },
-  { program: "Multifamily Commercial Real Estate", client: "Legal & General Investment Mgmt", type: "White Paper", launch: "2026-06-01", leads: 12, views: 247, promoStart: "2026-05-01", promoEnd: "2026-05-31", url: "https://pionline.com/white-papers/pi-lg-multifamily-commercial-real-estate" },
-  { program: "Understanding the True Drivers of Private-Market Portfolio Returns", client: "HarbourVest", type: "White Paper", launch: "2026-06-04", leads: 25, views: 402, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-uderstanding-true-drivers-of-private-market-portfolio-returns/" },
-  { program: "Navigating Market Dislocation", client: "Amova Asset Management", type: "Sponsored Content", launch: "2026-04-01", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-amova-market-dislocation/" },
-  { program: "The Investment Selection Rule: Fiduciary Conviction & Clarity", client: "iCapital", type: "Sponsored Content", launch: "2026-04-20", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-investment-selection-rule-fiduciary-conviction-clarity/" },
-  { program: "Pension Capital & the U.S. Infrastructure Funding Gap", client: "IFM", type: "Sponsored Content", launch: "2026-05-07", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/sponsored-content/pi-pension-capital-us-infrastructure-funding-gap/" },
-  { program: "The Next Phase of the Energy Transition", client: "Mackenzie Investments", type: "Sponsored Content", launch: "2026-05-18", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/sponsored-content/pi-next-phase-energy-transition-expansion-investment-cycle" },
-  { program: "Climate Risk Research for Institutional Investors", client: "EDHEC Climate Institute", type: "White Paper", launch: "2026-03-16", leads: 11, views: 520, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-climate-risk-research-for-institutional-investors/" },
-  { program: "Rethinking Portfolios for Dynamic Markets (Quick Take)", client: "Morgan Stanley Investment Mgmt", type: "Video", launch: "2026-05-08", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-quick-take-rethinking-portfolios-dynamic-markets/" },
-  { program: "A Granular View on Global Infrastructure (Webinar)", client: "abrdn & I Squared Capital", type: "Webinar", launch: "2026-05-13", leads: 230, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-granular-view-global-infrastructure/" },
-  { program: "Climate Commitments to Portfolio Reality", client: "Scientific Portfolio (EDHEC)", type: "White Paper", launch: "2026-05-11", leads: 21, views: 3369, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-climate-commitments-to-portfolio-reality-new-evidence-and-methods-for-investors/" },
-  { program: "Systematic Credit Uncovers Differentiated Alpha (Quick Take)", client: "Acadian Asset Management", type: "Video", launch: "2026-06-01", leads: null, views: null, promoStart: "2026-06-01", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-quick-take-systematic-credit-uncovers-differentiated-alpha/" },
-  { program: "Advancing Retirement Security: The Plan Sponsor's Guide to Private Markets & Lifetime Income", client: "AB", type: "Guide", launch: "2026-04-27", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/advancing-retirement-security-plan-sponsors-guide-private-markets-lifetime-income/" },
+  { program: "Extension Strategies: Managing Complex Risk to Uncover Greater Reward", client: "Lazard Asset Management", type: "White Paper", launch: "2026-06-10", leads: 4, promoStart: "2026-06-10", promoEnd: "2026-08-10", url: "https://www.pionline.com/white-papers/pi-extension-strategies-managing-complex-risk-to-uncover-greater-reward/" },
+  { program: "Flavors of Pension Risk Transfer", client: "Gallagher GBS Financial", type: "White Paper", launch: "2026-06-10", leads: 2, promoStart: "2026-06-10", promoEnd: "2026-07-10", url: "https://www.pionline.com/white-papers/pi-flavors-of-pensions-risk-transfer/" },
+  { program: "Thought Leadership White Paper", client: "Allianz Life Insurance", type: "White Paper", launch: "2026-06-08", leads: 4, promoStart: "", promoEnd: "", url: "" },
+  { program: "Japan Investment Update", client: "Amova Asset Management", type: "White Paper", launch: "2026-06-08", leads: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-amova-japan-investment-update" },
+  { program: "A New & Expanded Taxonomy for Private Markets", client: "S&P Global Market Intelligence", type: "White Paper", launch: "2026-06-08", leads: 1, promoStart: "2026-06-08", promoEnd: "2026-07-07", url: "https://www.pionline.com/white-papers/pi-new-and-expanded-taxonomy-for-private-markets/" },
+  { program: "Thought Leadership White Paper", client: "Fidelity Info Services (FIS)", type: "White Paper", launch: "2026-06-04", leads: 10, promoStart: "", promoEnd: "", url: "" },
+  { program: "Private Credit & AI", client: "HarbourVest", type: "White Paper", launch: "2026-04-01", leads: 21, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-harbourvest-private-credit-ai/" },
+  { program: "Quality & Momentum", client: "Federated Hermes", type: "White Paper", launch: "2026-05-14", leads: 7, promoStart: "2026-05-01", promoEnd: "2026-06-30", url: "https://pionline.com/white-papers/pi-federated-hermes-quality-momentum/" },
+  { program: "Emerging Markets 2026", client: "Robeco", type: "White Paper", launch: "2026-05-04", leads: 4, promoStart: "", promoEnd: "", url: "https://pionline.com/white-papers/pi-robeco-emerging-markets-2026/" },
+  { program: "Multifamily Commercial Real Estate", client: "Legal & General Investment Mgmt", type: "White Paper", launch: "2026-06-01", leads: 12, promoStart: "2026-05-01", promoEnd: "2026-05-31", url: "https://pionline.com/white-papers/pi-lg-multifamily-commercial-real-estate" },
+  { program: "Understanding the True Drivers of Private-Market Portfolio Returns", client: "HarbourVest", type: "White Paper", launch: "2026-06-04", leads: 25, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-uderstanding-true-drivers-of-private-market-portfolio-returns/" },
+  { program: "Climate Risk Research for Institutional Investors", client: "EDHEC Climate Institute", type: "White Paper", launch: "2026-03-16", leads: 11, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-climate-risk-research-for-institutional-investors/" },
+  { program: "Climate Commitments to Portfolio Reality", client: "Scientific Portfolio (EDHEC)", type: "White Paper", launch: "2026-05-11", leads: 21, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-climate-commitments-to-portfolio-reality-new-evidence-and-methods-for-investors/" },
+  { program: "A Granular View on Global Infrastructure (Webinar)", client: "abrdn & I Squared Capital", type: "Webinar", launch: "2026-05-13", leads: 230, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-granular-view-global-infrastructure/" },
 ];
 
 const typeMeta = {
@@ -182,7 +171,7 @@ const fmtPromo = p => {
 };
 function leadsCell(p) {
   if (p.leads != null) {
-    const sub = (p.type === 'Webinar') ? 'registrations' : (p.views != null ? p.views.toLocaleString() + ' views' : '');
+    const sub = (p.type === 'Webinar') ? 'registrants' : 'leads';
     return `<div class="leads-num">${p.leads.toLocaleString()}</div>${sub ? `<div class="leads-sub">${sub}</div>` : ''}`;
   }
   return gated(p.type) ? `<span class="pending">Pending</span>` : `<span class="na">N/A</span>`;
