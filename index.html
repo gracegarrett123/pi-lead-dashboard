@@ -113,7 +113,7 @@
     <div class="kpi"><div class="label">Programs In Market</div><div class="value" id="k-progs">0</div><div class="sub">Launched · Crain Brand = P&amp;I</div></div>
     <div class="kpi purple"><div class="label">White Papers</div><div class="value" id="k-wp">0</div><div class="sub">Gated lead-gen content</div></div>
     <div class="kpi green"><div class="label">White-Paper Leads</div><div class="value" id="k-leads">0</div><div class="sub">Jotform submissions · snapshot 6/10</div></div>
-    <div class="kpi blue"><div class="label">Webinar Registrations</div><div class="value" id="k-regs">0</div><div class="sub">abrdn × I Squared</div></div>
+    <div class="kpi blue"><div class="label">Webinar Registrations</div><div class="value" id="k-regs">0</div><div class="sub">Across all P&amp;I webinars</div></div>
   </div>
 
   <div class="card">
@@ -138,6 +138,7 @@ document.getElementById('updated').textContent = 'Updated ' + new Date().toLocal
 // leads/views: white papers from Jotform export (submissions/views per form); webinar regs from Smartsheet.
 // leads = number, or null. null + gated (White Paper/Guide) => "Pending"; null + ungated (Sponsored/Video) => "N/A".
 let programs = [
+  // ===== White Papers (Launched · P&I Task Tracker) =====
   { program: "Extension Strategies: Managing Complex Risk to Uncover Greater Reward", client: "Lazard Asset Management", type: "White Paper", launch: "2026-06-10", leads: 4, views: null, promoStart: "2026-06-10", promoEnd: "2026-08-10", url: "https://www.pionline.com/white-papers/pi-extension-strategies-managing-complex-risk-to-uncover-greater-reward/" },
   { program: "Flavors of Pension Risk Transfer", client: "Gallagher GBS Financial", type: "White Paper", launch: "2026-06-10", leads: 2, views: null, promoStart: "2026-06-10", promoEnd: "2026-07-10", url: "https://www.pionline.com/white-papers/pi-flavors-of-pensions-risk-transfer/" },
   { program: "Thought Leadership White Paper", client: "Allianz Life Insurance", type: "White Paper", launch: "2026-06-08", leads: 4, views: null, promoStart: "", promoEnd: "", url: "" },
@@ -151,14 +152,35 @@ let programs = [
   { program: "Understanding the True Drivers of Private-Market Portfolio Returns", client: "HarbourVest", type: "White Paper", launch: "2026-06-04", leads: 25, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-uderstanding-true-drivers-of-private-market-portfolio-returns/" },
   { program: "Climate Risk Research for Institutional Investors", client: "EDHEC Climate Institute", type: "White Paper", launch: "2026-03-16", leads: 11, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-climate-risk-research-for-institutional-investors/" },
   { program: "Climate Commitments to Portfolio Reality", client: "Scientific Portfolio (EDHEC)", type: "White Paper", launch: "2026-05-11", leads: 21, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/white-papers/pi-climate-commitments-to-portfolio-reality-new-evidence-and-methods-for-investors/" },
+  // ===== Webinars (Webinar Registrants P&I report — registrations from Smartsheet) =====
+  { program: "Private Credit: Navigating Growth and Complexity", client: "S&P Dow Jones Indices, Clearwater Analytics, Nuveen Institutional", type: "Webinar", launch: "2026-03-18", leads: 589, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Optimizing OCIO Strategy", client: "Fidelity ICG, Mercer, U.S. Bancorp Asset Management, Aon", type: "Webinar", launch: "2026-04-15", leads: 822, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "A Granular View on Global Infrastructure", client: "abrdn & I Squared Capital", type: "Webinar", launch: "2026-05-13", leads: 230, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-granular-view-global-infrastructure/" },
-  { program: "Market Dislocation", client: "Amova Asset Management", type: "Sponsored Content", launch: "2026-04-01", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-amova-market-dislocation/" },
-  { program: "Investment Selection: The Rule of Fiduciary Conviction & Clarity", client: "iCapital", type: "Sponsored Content", launch: "2026-04-20", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-investment-selection-rule-fiduciary-conviction-clarity/" },
-  { program: "Pension Capital & the US Infrastructure Funding Gap", client: "IFM", type: "Sponsored Content", launch: "2026-05-07", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/sponsored-content/pi-pension-capital-us-infrastructure-funding-gap/" },
-  { program: "The Next Phase of the Energy Transition: An Expansion Investment Cycle", client: "Mackenzie Investments", type: "Sponsored Content", launch: "2026-05-18", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/sponsored-content/pi-next-phase-energy-transition-expansion-investment-cycle" },
-  { program: "Quick Take: Rethinking Portfolios for Dynamic Markets", client: "Morgan Stanley Investment Management", type: "Video", launch: "2026-05-08", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-quick-take-rethinking-portfolios-dynamic-markets/" },
-  { program: "Quick Take: Systematic Credit Uncovers Differentiated Alpha", client: "Acadian Asset Management", type: "Video", launch: "2026-06-01", leads: null, views: null, promoStart: "2026-06-01", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-quick-take-systematic-credit-uncovers-differentiated-alpha/" },
-  { program: "Advancing Retirement Security: The Plan Sponsor’s Guide to Private Markets and Lifetime Income", client: "AB", type: "Guide", launch: "2026-04-27", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/advancing-retirement-security-plan-sponsors-guide-private-markets-lifetime-income/" },
+  { program: "Fixed Income: A Supportive Ballast", client: "Fidelity ICG, Morgan Stanley Investment Management, Federated Hermes, MFS Investment Management", type: "Webinar", launch: "2026-06-17", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Private Equity: Meeting the Moment", client: "S&P Dow Jones Indices, Mercer, Morningstar", type: "Webinar", launch: "2026-07-15", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Direct Lending", client: "Fidelity ICG, sponsor 2, sponsor 3", type: "Webinar", launch: "2026-08-12", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Pension Derisking: Planning the Forward Journey", client: "sponsor 1, sponsor 2, sponsor 3, sponsor 4", type: "Webinar", launch: "2026-09-09", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "A Strategic Shift Forward in ETF Usage", client: "Invesco, sponsor 2, sponsor 3", type: "Webinar", launch: "2026-09-16", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Emerging Markets", client: "sponsor 1, sponsor 2, sponsor 3", type: "Webinar", launch: "2026-10-14", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Bringing Alternatives in DC", client: "Alliance Bernstein", type: "Webinar", launch: "2026-11-11", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Systematic Strategies: An Expanding Toolkit", client: "Fidelity ICG, sponsor 2, sponsor 3, sponsor 4", type: "Webinar", launch: "2026-12-09", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "When Retirement is Delayed, Employers Pay: Workforce Costs and DC Solutions", client: "Principal", type: "Webinar", launch: "", leads: 211, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Emerging Markets", client: "Eastspring Investments, RBC Global Asset Management, Federated Hermes", type: "Webinar", launch: "", leads: 314, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "High Yield and Investment Grade Credit: Finding Opportunity (and Avoiding Landmines) in a Fully Funded World", client: "MetLife Investment Management", type: "Webinar", launch: "", leads: 130, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "The Evolving Alternatives Playbook", client: "RBC Global Asset Management", type: "Webinar", launch: "", leads: 122, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Untitled Webinar", client: "State Street Investment Management", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "OCIO for Pension Plans", client: "Mawer Investment Management", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Portable Alpha", client: "TBD", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Retirement Income", client: "TBD", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Hedge Funds", client: "TBD", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Untitled Webinar", client: "HarbourVest", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Asset Based Finance", client: "Federated Hermes, American Century Investments", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Untitled Webinar", client: "Nuveen", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Untitled Webinar", client: "TIAA", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "OCIO Series: Hospitals and Healthcare Institutions", client: "Bank of America - Private Bank", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Bring on the Secondaries", client: "TBD", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Untitled Webinar", client: "HarbourVest", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Untitled Webinar", client: "MetLife Investment Management", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
 ];
 
 const typeMeta = {
@@ -168,7 +190,7 @@ const typeMeta = {
   "Webinar":           { cls: "type-web",   lbl: "WEBINAR" },
   "Guide":             { cls: "type-guide", lbl: "GUIDE" },
 };
-const gated = t => (t === 'White Paper' || t === 'Guide');
+const gated = t => (t === 'White Paper' || t === 'Guide' || t === 'Webinar');
 const fmtDate = d => { if (!d) return "—"; const dt = new Date(d + 'T00:00:00'); return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); };
 const fmtPromo = p => {
   if (!p.promoStart && !p.promoEnd) return "—";
