@@ -38,17 +38,17 @@
   .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.07); margin-bottom: 24px; }
   .card h3 { font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 
-  .tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
   .tbl th { background: #f8fafc; text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; color: #64748b; border-bottom: 1px solid #e2e8f0; cursor: pointer; user-select: none; white-space: nowrap; }
   .tbl th:hover { color: #e8140b; }
   .tbl th .arr { opacity: 0.4; font-size: 9px; }
-  .tbl td { padding: 11px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+  .tbl td { padding: 11px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: top; overflow-wrap: break-word; word-break: normal; }
   .tbl tr:last-child td { border-bottom: none; }
   .tbl tbody tr:hover td { background: #fafbfc; }
-  .prog { font-weight: 600; color: #1e293b; max-width: 320px; }
+  .prog { font-weight: 600; color: #1e293b; }
   .prog a { color: #1e293b; text-decoration: none; border-bottom: 1px solid #cbd5e1; }
   .prog a:hover { color: #e8140b; border-bottom-color: #e8140b; }
-  .client { color: #334155; white-space: nowrap; }
+  .client { color: #334155; font-size: 12.5px; }
   .type-pill { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
   .type-wp { background: #f3e8ff; color: #7e22ce; }
   .type-sc { background: #e0f2fe; color: #0369a1; }
@@ -90,6 +90,14 @@
   <div class="card">
     <h3>In-Market Programs <span style="font-size:11px;font-weight:500;color:#94a3b8">Click any column to sort</span></h3>
     <table class="tbl" id="tbl">
+      <colgroup>
+        <col style="width:30%">
+        <col style="width:28%">
+        <col style="width:9%">
+        <col style="width:9%">
+        <col style="width:11%">
+        <col style="width:13%">
+      </colgroup>
       <thead>
         <tr>
           <th data-k="program">Program <span class="arr">&#9660;</span></th>
