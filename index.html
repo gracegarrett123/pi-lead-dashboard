@@ -71,6 +71,34 @@
   .footer-note { font-size: 12px; color: #64748b; margin-top: 4px; line-height: 1.5; }
   .footer-note strong { color: #334155; }
   @media (max-width: 820px) { .kpi-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* ===== Mobile (card layout) ===== */
+  @media (max-width: 640px) {
+    .header { padding: 18px 16px; }
+    .header h1 { font-size: 18px; }
+    .header p { font-size: 12px; }
+    .banner { padding: 10px 16px; font-size: 11.5px; }
+    .wrap { padding: 14px; }
+    .card { padding: 14px; border-radius: 10px; }
+    .card h3 { font-size: 13px; }
+    .sorthint { display: none; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .kpi { padding: 14px; }
+    .kpi .value { font-size: 22px; }
+
+    /* turn the table into stacked cards */
+    .tbl { table-layout: auto; font-size: 13px; }
+    .tbl thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .tbl, .tbl tbody, .tbl tr, .tbl td { display: block; width: 100%; }
+    .tbl tr { border: 1px solid #e6e9ee; border-radius: 12px; margin-bottom: 14px; padding: 4px 14px 8px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .tbl tbody tr:hover td { background: transparent; }
+    .tbl td { border-bottom: 1px solid #f4f6f9; padding: 9px 0 9px 42%; position: relative; min-height: 38px; }
+    .tbl tr td:last-child { border-bottom: none; }
+    .tbl td::before { content: attr(data-label); position: absolute; left: 0; top: 10px; width: 38%; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #94a3b8; }
+    .tbl td.prog { padding: 8px 0 10px; border-bottom: 2px solid #eef1f5; margin-bottom: 2px; font-size: 15px; line-height: 1.3; }
+    .tbl td.prog::before { display: none; }
+    .promo { white-space: normal; }
+  }
 </style>
 </head>
 <body>
@@ -88,7 +116,7 @@
 <div class="wrap">
 
   <div class="card">
-    <h3>In-Market Programs <span style="font-size:11px;font-weight:500;color:#94a3b8">Click any column to sort</span></h3>
+    <h3>In-Market Programs <span class="sorthint" style="font-size:11px;font-weight:500;color:#94a3b8">Click any column to sort</span></h3>
     <table class="tbl" id="tbl">
       <colgroup>
         <col style="width:30%">
@@ -233,12 +261,12 @@ function render() {
     const tm = typeMeta[p.type] || { cls: 'type-sc', lbl: p.type.toUpperCase() };
     const progCell = p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.program} ↗</a>` : p.program;
     return `<tr>
-      <td class="prog">${progCell}</td>
-      <td class="client">${p.client}</td>
-      <td><span class="type-pill ${tm.cls}">${tm.lbl}</span></td>
-      <td style="white-space:nowrap;color:#475569">${fmtDate(p.launch)}</td>
-      <td>${leadsCell(p)}</td>
-      <td class="promo ${fmtPromo(p) === '—' ? 'none' : ''}">${fmtPromo(p)}</td>
+      <td class="prog" data-label="Program">${progCell}</td>
+      <td class="client" data-label="Client">${p.client}</td>
+      <td data-label="Type"><span class="type-pill ${tm.cls}">${tm.lbl}</span></td>
+      <td data-label="Launch" style="white-space:nowrap;color:#475569">${fmtDate(p.launch)}</td>
+      <td data-label="Leads / Regs">${leadsCell(p)}</td>
+      <td data-label="Promo" class="promo ${fmtPromo(p) === '—' ? 'none' : ''}">${fmtPromo(p)}</td>
     </tr>`;
   }).join('');
 }
