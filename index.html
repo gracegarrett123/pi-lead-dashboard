@@ -2,7 +2,7 @@
 {
   "name": "P&I Lead Gen Tracker",
   "schemaVersion": 1,
-  "description": "Self-serve tracker of Pensions & Investments lead-gen programs currently in market — white papers and webinars only. Programs/clients/launch/promo/links come from the 'Pensions & Investments Task Tracker' Smartsheet (Crain Brand = P&I, Status = Launched). White-paper lead counts (submissions) come from the P&I 'TLP Tracker | Launched Campaigns' Smartsheet, maintained by the campaigns team and matched to each program by Arc live link; webinar registrants come from Smartsheet. Lead counts refresh daily from Smartsheet.",
+  "description": "Self-serve tracker of Pensions & Investments lead-gen programs currently in market — white papers and webinars only. Programs/clients/launch/promo/links come from the 'Pensions & Investments Task Tracker' Smartsheet (Crain Brand = P&I, Status = Launched). White-paper lead counts (submissions) come from the P&I 'TLP Tracker | Launched Campaigns' Smartsheet, maintained by the campaigns team and matched to each program by Arc live link; webinar registrants come from Smartsheet. Lead counts refresh daily from Smartsheet. A second tab, Content & Pacing, grades P&I custom/sponsored content vs benchmark (Adobe last-7-day engagement, Tableau 30-day extract, PIO delivery pacing) — every figure source-tagged.",
   "mcpTools": [],
   "mcpServerNames": ["Smartsheet"]
 }
@@ -72,6 +72,32 @@
   .footer-note strong { color: #334155; }
   @media (max-width: 820px) { .kpi-grid { grid-template-columns: 1fr 1fr; } }
 
+  /* ===== Tabs ===== */
+  .tabs { display:flex; background:white; border-bottom:1px solid #e2e8f0; padding:0 24px; gap:4px; flex-wrap:wrap; }
+  .tab { padding:12px 16px; font-size:13px; font-weight:500; color:#64748b; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; }
+  .tab.active { color:#e8140b; border-bottom-color:#e8140b; }
+  .tab:hover:not(.active) { color:#334155; }
+  .page { display:none; }
+  .page.active { display:block; }
+  /* ===== P&I Content & Pacing ===== */
+  .status-badge { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; padding:3px 9px; border-radius:20px; background:#f0fdf4; color:#166534; }
+  .time-pill { background:#f0fdf4; color:#166534; font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; display:inline-block; }
+  .time-pill.warn { background:#fff7ed; color:#c2410c; }
+  .vert-tag { font-size:11px; font-weight:600; padding:2px 9px; border-radius:20px; background:#f8fafc; color:#475569; border:1px solid #e2e8f0; }
+  .live-card { background:white; border-radius:12px; padding:16px 18px; box-shadow:0 1px 3px rgba(0,0,0,0.07); border-left:4px solid #3b82f6; margin-bottom:12px; }
+  .live-card .lc-title { font-size:14px; font-weight:700; color:#1e293b; margin-bottom:4px; }
+  .live-card .lc-sub { font-size:12px; color:#64748b; }
+  .live-card .lc-meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; align-items:center; }
+  .meta-tag { font-size:11px; color:#64748b; }
+  .src-legend { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; align-items:center; }
+  .src-legend .leg-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#94a3b8; margin-right:2px; }
+  .src-chip { font-size:11px; font-weight:600; padding:4px 10px; border-radius:20px; border:1px solid transparent; }
+  .src-tag { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; padding:1px 6px; border-radius:6px; vertical-align:middle; margin-left:6px; border:1px solid transparent; white-space:nowrap; }
+  .src-adobe { background:#fef2f2; color:#b91c1c; border-color:#fecaca; }
+  .src-tab   { background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+  .src-pio   { background:#fff7ed; color:#c2410c; border-color:#fed7aa; }
+  .tbl.static th { cursor:default; }
+  .tbl.static th:hover { color:#64748b; }
   /* ===== Mobile (card layout) ===== */
   @media (max-width: 640px) {
     .header { padding: 18px 16px; }
@@ -113,7 +139,13 @@
   <span><strong>Live data.</strong> White papers &amp; webinars from the P&amp;I Task Tracker (Smartsheet); white-paper lead counts (submissions) from the P&amp;I TLP Tracker Smartsheet; webinar registrants from Smartsheet. Refreshed daily.</span>
 </div>
 
+<div class="tabs">
+  <div class="tab active" onclick="showPage('leadgen')">Lead Gen</div>
+  <div class="tab" onclick="showPage('pacing')">Content &amp; Pacing</div>
+</div>
+
 <div class="wrap">
+  <div class="page active" id="page-leadgen">
 
   <div class="card">
     <h3>In-Market Programs <span class="sorthint" style="font-size:11px;font-weight:500;color:#94a3b8">Click any column to sort</span></h3>
@@ -164,6 +196,44 @@
   <p class="footer-note">
     <strong>Sources:</strong> Pensions &amp; Investments Task Tracker (Smartsheet) for programs; Webinar Registrants P&amp;I report (Smartsheet) for webinar registrations; P&amp;I TLP Tracker | Launched Campaigns (Smartsheet) for white-paper submission counts. Built off the Ad Solutions Team Dashboard pattern.
   </p>
+  </div><!-- /page-leadgen -->
+
+  <div class="page" id="page-pacing">
+
+    <div class="src-legend">
+      <span class="leg-label">Data sources:</span>
+      <span class="src-chip src-adobe">Adobe — last-7-day engagement</span>
+      <span class="src-chip src-tab">Tableau — 30-day extract</span>
+      <span class="src-chip src-pio">PIO Pacing — delivery</span>
+    </div>
+    <p class="footer-note" style="margin-bottom:16px">Grades P&amp;I custom/sponsored content vs benchmark three ways. <strong>Last 7 days</strong> — each story in the latest Adobe report vs its content-type benchmark (30-day benchmark prorated to 7 days; &plusmn;15% = On Pace). <strong>Past 30 days</strong> — stories published in the last month, actual pageviews vs the 30-day benchmark prorated to days-live. <strong>Delivery pacing</strong> — live line-item pacing from the weekly PIO Pacing report (&lt;90% behind, 90&ndash;110% on pace, &gt;110% ahead). Page views drive the engagement flags; avg time is context.</p>
+    <div class="kpi-grid">
+      <div class="kpi green"><div class="label">Over Benchmark <span class="src-tag src-adobe">Adobe</span></div><div class="value" id="pi-over">0</div><div class="sub">&ge; +15% vs 7-day expected</div></div>
+      <div class="kpi"><div class="label">On Pace <span class="src-tag src-adobe">Adobe</span></div><div class="value" id="pi-onpace">0</div><div class="sub">within &plusmn;15%</div></div>
+      <div class="kpi" style="border-left-color:#f59e0b"><div class="label">Under Benchmark <span class="src-tag src-adobe">Adobe</span></div><div class="value" id="pi-under">0</div><div class="sub">&le; &minus;15% vs 7-day expected</div></div>
+      <div class="kpi purple"><div class="label">Delivery Flags <span class="src-tag src-pio">PIO</span></div><div class="value" id="pi-delivery-flags">&mdash;</div><div class="sub" id="pi-delivery-sub">from latest PIO Pacing report</div></div>
+    </div>
+    <div class="card">
+      <h3>&#128202; Engagement vs. Benchmark &middot; Last 7 Days <span class="src-tag src-adobe">Adobe</span></h3>
+      <table class="tbl static" style="table-layout:auto">
+        <thead><tr><th>Headline</th><th>Type</th><th>Page Views (7d)</th><th>Pacing to Benchmark</th><th>Avg Time</th></tr></thead>
+        <tbody id="pi-eng-tbody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>&#128197; Past 30 Days &middot; by Publish Date (vs 30-day benchmark) <span class="src-tag src-tab">Tableau</span></h3>
+      <p class="footer-note" style="margin-bottom:12px">P&amp;I custom/sponsored stories published in the last 30 days, from the manually-uploaded 30-day Tableau Content Extract (as of the <span id="pi-month-asof">Jul 9</span> extract). Actual pageviews vs the 30-day benchmark prorated to each story's days-live. &plusmn;15% = On Pace.</p>
+      <table class="tbl static" style="table-layout:auto">
+        <thead><tr><th>Headline</th><th>Published</th><th>Days Live</th><th>Page Views</th><th>Pacing to Benchmark</th></tr></thead>
+        <tbody id="pi-month-tbody"></tbody>
+      </table>
+      <p id="pi-month-note" style="font-size:11px;color:#94a3b8;margin-top:10px"></p>
+    </div>
+    <div class="card">
+      <h3>&#128678; Delivery Pacing &middot; PIO Pacing report <span class="src-tag src-pio">PIO</span></h3>
+      <div id="pi-pacing-list"></div>
+    </div>
+  </div>
 
 </div>
 
@@ -282,6 +352,78 @@ document.querySelectorAll('#tbl th').forEach(th => th.addEventListener('click', 
   render();
 }));
 render();
+
+// ===== P&I Content & Pacing tab =====
+function timeToSec(t){ const [m,s]=t.split(':').map(Number); return m*60+s; }
+const PI_BAND=0.15;
+const piEngagement=[
+  { title:"How a Long-Only Growth Investor Navigates the AI Era", type:"Partner Content", benchPV30:1971, pv7:520, time:"2:07", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-how-a-long-only-growth-investor-navigates-the-ai-era/" },
+  { title:"Systematic Global Macro Is Having a Moment", type:"Partner Content", benchPV30:1971, pv7:435, time:"0:32", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-systematic-global-macro-is-having-a-moment/" },
+  { title:"Fixed Income – Supportive Ballast", type:"Partner Content", benchPV30:1971, pv7:382, time:"1:10", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-fixed-income-supportive-ballast/" },
+  { title:"Understanding True Drivers of Private-Market Portfolio Returns", type:"Partner Content", benchPV30:1971, pv7:102, time:"3:35", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-uderstanding-true-drivers-of-private-market-portfolio-returns/" },
+  { title:"Could It Be Time for a Resurgence in Quality?", type:"Partner Content", benchPV30:1971, pv7:74, time:"1:06", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-could-it-be-time-for-resurgence-in-quality/" },
+];
+const piPacing=[];
+const piPacingMeta={ reportThrough:"6/25 (latest received)", headline:"Latest PIO Pacing report (through 6/25, from Nikola Radovanovic) flagged 1 line item pacing behind. The xlsx is a binary attachment and was not machine-readable via the connector this run — line-item detail pending." };
+const piMonthAsOf="Jul 9";
+const piMonth=[
+  { title:"Fixed Income: A Supportive Ballast", pub:"Jun 15", daysLive:24, pv:1482, benchPV30:1971, url:"https://www.pionline.com/partner-content/pi-fixed-income-supportive-ballast/" },
+];
+const piMonthNote="P&I sponsored/custom stories published in the last 30 days, from the manually-uploaded 30-day Tableau Content Extract (metrics as of Jul 9; days-live graded to that date). Fixed Income is the only P&I sponsored story in the extract with gradeable volume; excluded — too low to grade: “Private Equity: Meeting the Moment” (~3 pageviews). Note: Systematic Global Macro and the Long-Only AI-Era read are tracked via the Adobe feed (see the Last-7-Days engagement table above) and do not appear as Sponsored/Custom in this Tableau extract.";
+function piStatus(pct){
+  if(pct>PI_BAND) return { label:"Overperforming", css:"background:#f0fdf4;color:#166534" };
+  if(pct<-PI_BAND) return { label:"Underperforming", css:"background:#fff7ed;color:#c2410c" };
+  return { label:"On Pace", css:"background:#eff6ff;color:#1d4ed8" };
+}
+let piOver=0,piOn=0,piUnder=0;
+document.getElementById('pi-eng-tbody').innerHTML=piEngagement.map(s=>{
+  const exp7=s.benchPV30*7/30; const pct=s.pv7/exp7-1; const st=piStatus(pct);
+  if(pct>PI_BAND)piOver++; else if(pct<-PI_BAND)piUnder++; else piOn++;
+  const pctTxt=(pct>=0?'+':'')+Math.round(pct*100)+'%';
+  return `<tr>
+    <td data-label="Headline" style="max-width:300px"><a href="${s.url}" target="_blank" rel="noopener" style="font-weight:600;font-size:13px;color:#1e293b;text-decoration:none;border-bottom:1px solid #cbd5e1">${s.title} ↗</a></td>
+    <td data-label="Type"><span class="vert-tag">${s.type}</span></td>
+    <td data-label="Page Views (7d)" style="font-size:13px;color:#334155">${s.pv7.toLocaleString()} <span style="color:#94a3b8;font-size:11px">/ ~${Math.round(exp7).toLocaleString()} exp</span></td>
+    <td data-label="Pacing"><span class="status-badge" style="${st.css}">${st.label} ${pctTxt}</span></td>
+    <td data-label="Avg Time"><span class="time-pill ${timeToSec(s.time)>=180?'':'warn'}">${s.time}</span> <span style="color:#94a3b8;font-size:11px">vs ${s.benchTime}</span></td>
+  </tr>`;
+}).join('');
+document.getElementById('pi-over').textContent=piOver;
+document.getElementById('pi-onpace').textContent=piOn;
+document.getElementById('pi-under').textContent=piUnder;
+if(piPacing.length===0){
+  document.getElementById('pi-delivery-flags').textContent='—';
+  document.getElementById('pi-pacing-list').innerHTML=`<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:10px;padding:20px;color:#64748b;font-size:13px;line-height:1.5">${piPacingMeta.headline}<br><span style="font-size:11px;color:#94a3b8">Latest report through: ${piPacingMeta.reportThrough}</span></div>`;
+} else {
+  const behind=piPacing.filter(p=>p.pacingRate<90).length;
+  document.getElementById('pi-delivery-flags').textContent=behind;
+  document.getElementById('pi-delivery-sub').textContent=(behind===1?'line item behind':'line items behind');
+  document.getElementById('pi-pacing-list').innerHTML=piPacing.map(p=>{
+    const st=p.pacingRate<90?{label:"Behind",css:"background:#fff7ed;color:#c2410c",dot:"#f59e0b"}:p.pacingRate>110?{label:"Ahead",css:"background:#f0fdf4;color:#166534",dot:"#10b981"}:{label:"On Pace",css:"background:#eff6ff;color:#1d4ed8",dot:"#3b82f6"};
+    return `<div class="live-card" style="border-left-color:${st.dot}"><div class="lc-title">${p.advertiser}</div><div class="lc-sub" style="font-size:11px;color:#94a3b8;word-break:break-all">${p.lineItem}</div><div class="lc-meta"><span class="status-badge" style="${st.css}">${st.label} &middot; ${p.pacingRate}%</span>${p.contracted?`<span class="meta-tag">&#127919; ${Number(p.contracted).toLocaleString()} imp</span>`:''}${p.endDate?`<span class="meta-tag">ends ${p.endDate}</span>`:''}</div></div>`;
+  }).join('');
+}
+document.getElementById('pi-month-asof').textContent=piMonthAsOf;
+document.getElementById('pi-month-tbody').innerHTML=piMonth.map(s=>{
+  const exp=s.benchPV30*Math.min(s.daysLive,30)/30; const pct=s.pv/exp-1; const st=piStatus(pct);
+  const pctTxt=(pct>=0?'+':'')+Math.round(pct*100)+'%';
+  return `<tr>
+    <td data-label="Headline" style="max-width:300px"><a href="${s.url}" target="_blank" rel="noopener" style="font-weight:600;font-size:13px;color:#1e293b;text-decoration:none;border-bottom:1px solid #cbd5e1">${s.title} ↗</a></td>
+    <td data-label="Published" style="font-size:13px;color:#334155">${s.pub}</td>
+    <td data-label="Days Live" style="font-size:13px;color:#334155">${s.daysLive}d</td>
+    <td data-label="Page Views" style="font-size:13px;color:#334155">${s.pv.toLocaleString()} <span style="color:#94a3b8;font-size:11px">/ ~${Math.round(exp).toLocaleString()} exp</span></td>
+    <td data-label="Pacing"><span class="status-badge" style="${st.css}">${st.label} ${pctTxt}</span></td>
+  </tr>`;
+}).join('');
+document.getElementById('pi-month-note').textContent=piMonthNote;
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>{ const oc=t.getAttribute('onclick')||''; if(oc.indexOf("'"+id+"'")!==-1) t.classList.add('active'); });
+}
+
 </script>
 </body>
 </html>
