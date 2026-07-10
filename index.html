@@ -2,7 +2,7 @@
 {
   "name": "P&I Lead Gen Tracker",
   "schemaVersion": 1,
-  "description": "Self-serve tracker of Pensions & Investments lead-gen programs currently in market — white papers and webinars only. Programs/clients/launch/promo/links come from the 'Pensions & Investments Task Tracker' Smartsheet (Crain Brand = P&I, Status = Launched). White-paper lead counts (submissions) come from the P&I 'TLP Tracker | Launched Campaigns' Smartsheet, maintained by the campaigns team and matched to each program by Arc live link; webinar registrants come from Smartsheet. Lead counts refresh daily from Smartsheet. A second tab, Content & Pacing, grades P&I custom/sponsored content vs benchmark (Adobe last-7-day engagement, Tableau 30-day extract, PIO delivery pacing) — every figure source-tagged.",
+  "description": "Self-serve tracker of Pensions & Investments lead-gen programs currently in market — white papers and webinars only. Programs/clients/launch/promo/links come from the 'Pensions & Investments Task Tracker' Smartsheet (Crain Brand = P&I, Status = Launched). White-paper lead counts (submissions) come from the P&I 'TLP Tracker | Launched Campaigns' Smartsheet, maintained by the campaigns team and matched to each program by Arc live link; webinar registrants come from Smartsheet. Lead counts refresh daily from Smartsheet. Each program row expands to a campaign panel — promo count, last/next promo, and per-email open rate, CTOR and conversions — matched from the P&I 'Email Data and KPI Input' Smartsheet. A second tab, Content & Pacing, grades P&I custom/sponsored content vs benchmark (Adobe last-7-day engagement, Tableau 30-day extract, PIO delivery pacing) — every figure source-tagged.",
   "mcpTools": [],
   "mcpServerNames": ["Smartsheet"]
 }
@@ -98,6 +98,29 @@
   .src-pio   { background:#fff7ed; color:#c2410c; border-color:#fed7aa; }
   .tbl.static th { cursor:default; }
   .tbl.static th:hover { color:#64748b; }
+  /* ===== Campaign expander ===== */
+  .prog-row { cursor:pointer; }
+  .caret { display:inline-block; width:12px; margin-right:5px; color:#cbd5e1; font-size:9px; transition:transform .15s ease; }
+  .prog-row.open .caret { transform:rotate(90deg); color:#e8140b; }
+  .prog-row:hover .caret { color:#94a3b8; }
+  .camp > td { padding:0 !important; background:#fbfcfe; border-bottom:1px solid #eef1f5; }
+  .camp-wrap { padding:12px 16px 16px 32px; }
+  .camp-sum { display:flex; flex-wrap:wrap; gap:20px; margin-bottom:12px; }
+  .camp-sum .m { font-size:10px; color:#94a3b8; text-transform:uppercase; letter-spacing:.4px; font-weight:700; }
+  .camp-sum .m b { display:block; font-size:16px; color:#1e293b; font-weight:700; text-transform:none; letter-spacing:0; margin-top:3px; }
+  .camp-sum .m .unit { font-size:11px; color:#94a3b8; font-weight:600; }
+  .camp-hdr { font-size:10px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.5px; margin:4px 0 2px; }
+  .promo-item { display:grid; grid-template-columns:58px 1fr 74px 70px 70px; gap:10px; padding:9px 0; border-bottom:1px solid #f1f5f9; align-items:center; font-size:12px; }
+  .promo-item:last-child { border-bottom:none; }
+  .promo-date { color:#64748b; white-space:nowrap; font-size:11px; }
+  .promo-label { font-weight:700; font-size:9px; padding:1px 7px; border-radius:20px; background:#ffedd5; color:#c2410c; display:inline-block; }
+  .promo-label.replay { background:#eef2ff; color:#4338ca; }
+  .promo-subj { color:#475569; margin-top:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .promo-metric { text-align:right; }
+  .promo-metric b { color:#1e293b; font-size:12.5px; }
+  .promo-metric .lbl { display:block; font-size:8.5px; color:#94a3b8; text-transform:uppercase; letter-spacing:.3px; margin-bottom:1px; }
+  .camp-empty { padding:11px 16px 12px 32px; font-size:12px; color:#94a3b8; font-style:italic; }
+  .camp-note { font-size:10.5px; color:#94a3b8; margin-top:8px; }
   /* ===== Mobile (card layout) ===== */
   @media (max-width: 640px) {
     .header { padding: 18px 16px; }
@@ -124,6 +147,13 @@
     .tbl td.prog { padding: 8px 0 10px; border-bottom: 2px solid #eef1f5; margin-bottom: 2px; font-size: 15px; line-height: 1.3; }
     .tbl td.prog::before { display: none; }
     .promo { white-space: normal; }
+    .camp { border:none !important; box-shadow:none !important; margin:-12px 0 14px !important; padding:0 !important; border-radius:0 0 12px 12px !important; }
+    .camp > td { padding:0 !important; min-height:0; }
+    .camp > td::before { display:none; }
+    .camp-wrap { padding:12px 14px; }
+    .promo-item { grid-template-columns:1fr 1fr; gap:6px 10px; }
+    .promo-item > div:nth-child(2) { grid-column:1 / -1; order:-1; }
+    .promo-subj { white-space:normal; }
   }
 </style>
 </head>
@@ -174,6 +204,7 @@
       <span class="type-pill type-wp">WHITE PAPER</span>
       <span class="type-pill type-web">WEBINAR</span>
       <span>· <span class="pending">Pending</span> lead count not in yet</span>
+      <span style="color:#94a3b8">· <span style="color:#e8140b;font-weight:700">▶</span> click any row for promo history &amp; email results</span>
     </div>
   </div>
 
@@ -189,7 +220,8 @@
     <div class="src-card">
       <div class="row"><div class="dot" style="background:#10b981"></div><div><strong>Programs — from the P&amp;I Task Tracker (Smartsheet).</strong> Clients, launch dates, promo windows, and live links pull from the sheet (Crain Brand = P&amp;I, Status = Launched). Webinar registrations come from the sheet too.</div></div>
       <div class="row"><div class="dot" style="background:#7e22ce"></div><div><strong>White-paper leads — from the P&amp;I TLP Tracker (Smartsheet).</strong> Submission counts are maintained by the campaigns team and matched to each program by Arc live link. They now refresh automatically from Smartsheet.</div></div>
-      <div class="row"><div class="dot" style="background:#f59e0b"></div><div><strong>Refresh cadence.</strong> A daily 7:00 AM task refreshes programs and webinar registrations from Smartsheet, pulls the latest white-paper submission counts from the P&amp;I TLP Tracker, and republishes the page.</div></div>
+      <div class="row"><div class="dot" style="background:#c2410c"></div><div><strong>Campaign detail — from the P&amp;I Email Data &amp; KPI Input (Smartsheet).</strong> Click any row to expand its promo history: how many promos have gone out, the next scheduled send, and per-email open rate, CTOR and registrants/leads. Blasts are matched to each program by name; shared newsletters (Knowledge Exchange) are excluded.</div></div>
+      <div class="row"><div class="dot" style="background:#f59e0b"></div><div><strong>Refresh cadence.</strong> A daily 7:00 AM task refreshes programs and webinar registrations from Smartsheet, pulls the latest white-paper submission counts from the P&amp;I TLP Tracker, re-pulls email campaign metrics, and republishes the page.</div></div>
     </div>
   </div>
 
@@ -295,6 +327,11 @@ let programs = [
   { program: "Public Funds: Building Portfolio Resilience", client: "sponsor 1, sponsor 2, sponsor 3, sponsor 4", type: "Webinar", launch: "2026-11-12", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
 ];
 
+// ===== Per-program email campaign detail (P&I "Email Data and KPI Input" Smartsheet) =====
+// Keyed by program||client. Blasts matched by program/client; newsletters (Knowledge Exchange) excluded.
+// promosSent = # sends to date; convTotal = email-attributed registrants/leads; per-promo open rate, CTR-to-open (CTOR) & conversions.
+const campaigns = {"Optimizing OCIO Strategy||Fidelity ICG, Mercer, U.S. Bancorp Asset Management, Aon":{"promosSent":5,"totalPromos":5,"lastPromo":"2026-04-15","nextPromo":null,"avgOpenRate":"5.8%","convType":"Registrants","convTotal":734,"promos":[{"date":"2026-03-23","label":"Promo 1","subject":"Optimizing OCIO Strategy","sent":51071,"delivered":49565,"opens":3348,"openRate":"6.8%","clicks":283,"ctr":"0.6%","ctor":"8.45%","conv":453},{"date":"2026-03-30","label":"Promo 2","subject":"Optimizing OCIO Strategy | Wednesday, April 15 at 2:00 PM","sent":50871,"delivered":49404,"opens":3053,"openRate":"6.2%","clicks":173,"ctr":"0.4%","ctor":"5.67%","conv":134},{"date":"2026-04-07","label":"Promo 3","subject":"REGISTER TODAY | Optimizing OCIO Strategy","sent":50640,"delivered":49144,"opens":2976,"openRate":"6.1%","clicks":133,"ctr":"0.3%","ctor":"4.47%","conv":78},{"date":"2026-04-12","label":"Promo 4","subject":"Optimizing OCIO Strategy | REGISTER TODAY","sent":50504,"delivered":49070,"opens":2726,"openRate":"5.6%","clicks":93,"ctr":"0.2%","ctor":"3.41%","conv":43},{"date":"2026-04-15","label":"Promo 5","subject":"[TODAY] Optimizing OCIO Strategy","sent":50460,"delivered":49102,"opens":2207,"openRate":"4.5%","clicks":72,"ctr":"0.1%","ctor":"3.26%","conv":26}]},"Private Credit: Navigating Growth and Complexity||S&P Dow Jones Indices, Clearwater Analytics, Nuveen Institutional":{"promosSent":6,"totalPromos":6,"lastPromo":"2026-04-02","nextPromo":null,"avgOpenRate":"6.3%","convType":null,"convTotal":null,"promos":[{"date":"2026-02-23","label":"Promo 1","subject":"Private Credit: Navigating Growth and Complexity","sent":51591,"delivered":50046,"opens":3133,"openRate":"6.3%","clicks":202,"ctr":"0.4%","ctor":"6.45%","conv":null},{"date":"2026-03-02","label":"Promo 2","subject":"Private Credit: Navigating Growth and Complexity | Wednesday, March 18 at 2:00 PM ET","sent":51375,"delivered":49839,"opens":3167,"openRate":"6.4%","clicks":197,"ctr":"0.4%","ctor":"6.22%","conv":null},{"date":"2026-03-09","label":"Promo 3","subject":"REGISTER TODAY | Private Credit: Navigating Growth and Complexity","sent":51234,"delivered":49674,"opens":3371,"openRate":"6.8%","clicks":296,"ctr":"0.6%","ctor":"8.78%","conv":null},{"date":"2026-03-16","label":"Promo 4","subject":"Private Credit: Navigating Growth and Complexity | REGISTER TODAY","sent":50996,"delivered":49472,"opens":3172,"openRate":"6.4%","clicks":148,"ctr":"0.3%","ctor":"4.67%","conv":null},{"date":"2026-03-18","label":"Promo 5","subject":"[TODAY] Private Credit: Navigating Growth and Complexity","sent":50959,"delivered":49428,"opens":3117,"openRate":"6.3%","clicks":126,"ctr":"0.3%","ctor":"4.04%","conv":null},{"date":"2026-04-02","label":"Replay","subject":"Replay - Private Credit: Navigating Growth and Complexity","sent":50871,"delivered":49408,"opens":2942,"openRate":"6.0%","clicks":102,"ctr":"0.2%","ctor":"3.47%","conv":null}]},"Untitled Webinar||Nuveen":{"promosSent":6,"totalPromos":6,"lastPromo":"2026-04-16","nextPromo":null,"avgOpenRate":"6.2%","convType":"Registrants","convTotal":417,"promos":[{"date":"2026-03-06","label":"Promo 1","subject":"Navigating the new landscape: DOL's response to private market investments in DC plans","sent":51355,"delivered":49800,"opens":3290,"openRate":"6.6%","clicks":128,"ctr":"0.3%","ctor":"3.89%","conv":103},{"date":"2026-03-12","label":"Promo 2","subject":"Navigating the new landscape ... | Date to be announced","sent":51229,"delivered":49694,"opens":3125,"openRate":"6.3%","clicks":152,"ctr":"0.3%","ctor":"4.86%","conv":56},{"date":"2026-03-19","label":"Promo 3","subject":"REGISTER TODAY | Navigating the new landscape: DOL's response ...","sent":51030,"delivered":49540,"opens":3059,"openRate":"6.2%","clicks":175,"ctr":"0.4%","ctor":"5.72%","conv":83},{"date":"2026-03-25","label":"Promo 4","subject":"Navigating the new landscape ... | REGISTER TODAY","sent":50962,"delivered":49451,"opens":3082,"openRate":"6.2%","clicks":121,"ctr":"0.2%","ctor":"3.93%","conv":59},{"date":"2026-04-01","label":"Promo 5","subject":"[TOMORROW] Navigating the new landscape: DOL's response ...","sent":50910,"delivered":49452,"opens":2977,"openRate":"6.0%","clicks":169,"ctr":"0.3%","ctor":"5.68%","conv":104},{"date":"2026-04-16","label":"Replay","subject":"Replay - Navigating the new landscape: DOL's response ...","sent":50655,"delivered":49193,"opens":2839,"openRate":"5.8%","clicks":78,"ctr":"0.2%","ctor":"2.75%","conv":12}]},"When Retirement is Delayed, Employers Pay: Workforce Costs and DC Solutions||Principal":{"promosSent":5,"totalPromos":5,"lastPromo":"2026-04-08","nextPromo":null,"avgOpenRate":"6.1%","convType":"Registrants","convTotal":190,"promos":[{"date":"2026-03-13","label":"Promo 1","subject":"When Retirement is Delayed, Employers Pay: Workforce Costs and DC Solutions","sent":51195,"delivered":49662,"opens":3085,"openRate":"6.2%","clicks":365,"ctr":"0.7%","ctor":"11.83%","conv":56},{"date":"2026-03-20","label":"Promo 2","subject":"... | Wednesday, April 8 at 2:00 PM ET","sent":51037,"delivered":49549,"opens":3344,"openRate":"6.7%","clicks":273,"ctr":"0.6%","ctor":"8.16%","conv":32},{"date":"2026-03-26","label":"Promo 3","subject":"REGISTER TODAY | When Retirement is Delayed ...","sent":50947,"delivered":49456,"opens":3171,"openRate":"6.4%","clicks":107,"ctr":"0.2%","ctor":"3.37%","conv":48},{"date":"2026-04-06","label":"Promo 4","subject":"... | REGISTER TODAY","sent":50768,"delivered":49312,"opens":2939,"openRate":"6.0%","clicks":74,"ctr":"0.2%","ctor":"2.52%","conv":33},{"date":"2026-04-08","label":"Promo 5","subject":"[TODAY] When Retirement is Delayed ...","sent":50717,"delivered":49235,"opens":2656,"openRate":"5.4%","clicks":61,"ctr":"0.1%","ctor":"2.30%","conv":21}]},"Emerging Markets||Eastspring Investments, RBC Global Asset Management, Federated Hermes":{"promosSent":3,"totalPromos":3,"lastPromo":"2026-04-17","nextPromo":null,"avgOpenRate":"6.0%","convType":"Registrants","convTotal":132,"promos":[{"date":"2026-04-03","label":"Promo 1","subject":"Emerging Markets: A Selective View","sent":50855,"delivered":49395,"opens":2890,"openRate":"5.9%","clicks":106,"ctr":"0.2%","ctor":"3.67%","conv":64},{"date":"2026-04-09","label":"Promo 2","subject":"Emerging Markets: A Selective View | Wednesday, April 29 at 10:00 AM","sent":50742,"delivered":49235,"opens":3008,"openRate":"6.1%","clicks":70,"ctr":"0.1%","ctor":"2.33%","conv":39},{"date":"2026-04-17","label":"Promo 3","subject":"REGISTER TODAY | Emerging Markets: A Selective View","sent":50535,"delivered":49031,"opens":2944,"openRate":"6.0%","clicks":100,"ctr":"0.2%","ctor":"3.40%","conv":29}]},"A Granular View on Global Infrastructure||abrdn, I Squared Capital":{"promosSent":1,"totalPromos":1,"lastPromo":"2026-04-19","nextPromo":null,"avgOpenRate":"6.5%","convType":"Registrants","convTotal":55,"promos":[{"date":"2026-04-19","label":"Promo 1","subject":"A Granular View on Global Infrastructure","sent":50547,"delivered":49107,"opens":3168,"openRate":"6.5%","clicks":342,"ctr":"0.7%","ctor":"10.80%","conv":55}]},"High Yield and Investment Grade Credit: Finding Opportunity (and Avoiding Landmines) in a Fully Funded World||MetLife Investment Management":{"promosSent":1,"totalPromos":1,"lastPromo":"2026-06-19","nextPromo":null,"avgOpenRate":"5.5%","convType":"Registrants","convTotal":18,"promos":[{"date":"2026-06-19","label":"Replay","subject":"Replay - High Yield and Investment Grade Credit ...","sent":49429,"delivered":47913,"opens":2644,"openRate":"5.5%","clicks":82,"ctr":"0.2%","ctor":"3.10%","conv":18}]},"Fixed Income: A Supportive Ballast||Fidelity ICG, Morgan Stanley Investment Management, Federated Hermes, MFS Investment Management":{"promosSent":3,"totalPromos":3,"lastPromo":"2026-07-01","nextPromo":null,"avgOpenRate":"5.2%","convType":"Registrants","convTotal":71,"promos":[{"date":"2026-06-08","label":"Promo 3","subject":"REGISTER TODAY | Fixed Income: A Supportive Ballast","sent":49595,"delivered":48093,"opens":2826,"openRate":"5.9%","clicks":85,"ctr":"0.2%","ctor":"3.01%","conv":48},{"date":"2026-06-17","label":"Promo 5","subject":"[TODAY] Fixed Income: A Supportive Ballast","sent":49402,"delivered":47900,"opens":2350,"openRate":"4.9%","clicks":94,"ctr":"0.2%","ctor":"4.00%","conv":23},{"date":"2026-07-01","label":"Replay","subject":"Replay - Fixed Income: A Supportive Ballast","sent":49965,"delivered":48427,"opens":2379,"openRate":"4.9%","clicks":53,"ctr":"0.1%","ctor":"2.23%","conv":null}]},"Private Equity: Meeting the Moment||S&P Dow Jones Indices, Mercer, Morningstar":{"promosSent":2,"totalPromos":2,"lastPromo":"2026-06-29","nextPromo":null,"avgOpenRate":"5.7%","convType":"Registrants","convTotal":87,"promos":[{"date":"2026-06-22","label":"Promo 1","subject":"Private Equity: Meeting the Moment","sent":49430,"delivered":47906,"opens":2742,"openRate":"5.7%","clicks":122,"ctr":"0.3%","ctor":"4.45%","conv":87},{"date":"2026-06-29","label":"Promo 2","subject":"Private Equity: Meeting the Moment | Wednesday, July 15 at 2:00 PM ET","sent":49990,"delivered":48451,"opens":2719,"openRate":"5.6%","clicks":116,"ctr":"0.2%","ctor":"4.27%","conv":null}]},"The Evolving Alternatives Playbook||RBC Global Asset Management":{"promosSent":1,"totalPromos":1,"lastPromo":"2026-06-25","nextPromo":null,"avgOpenRate":"5.6%","convType":"Registrants","convTotal":21,"promos":[{"date":"2026-06-25","label":"Replay","subject":"Replay - The Evolving Alternatives Playbook","sent":49478,"delivered":47961,"opens":2697,"openRate":"5.6%","clicks":72,"ctr":"0.2%","ctor":"2.67%","conv":21}]},"Untitled Webinar||State Street Investment Management":{"promosSent":2,"totalPromos":2,"lastPromo":"2026-07-02","nextPromo":null,"avgOpenRate":"5.7%","convType":"Registrants","convTotal":96,"promos":[{"date":"2026-06-26","label":"Promo 1","subject":"Expanding Access & Innovation in Retirement: Policy, Structures, and Solutions","sent":49670,"delivered":48146,"opens":2759,"openRate":"5.7%","clicks":82,"ctr":"0.2%","ctor":"2.97%","conv":53},{"date":"2026-07-02","label":"Promo 2","subject":"Expanding Access & Innovation in Retirement ... | Wednesday, July 22 at 2 PM ET","sent":49916,"delivered":48383,"opens":2715,"openRate":"5.6%","clicks":87,"ctr":"0.2%","ctor":"3.20%","conv":43}]},"Understanding the True Drivers of Private-Market Portfolio Returns||HarbourVest":{"promosSent":1,"totalPromos":1,"lastPromo":"2026-06-29","nextPromo":null,"avgOpenRate":"11.0%","convType":"Leads Generated","convTotal":null,"promos":[{"date":"2026-06-29","label":"Promo 1","subject":"White Paper: The hidden drivers of private market returns","sent":3890,"delivered":3767,"opens":413,"openRate":"11.0%","clicks":44,"ctr":"1.2%","ctor":"10.65%","conv":null}]},"Quality & Momentum||Federated Hermes":{"promosSent":1,"totalPromos":1,"lastPromo":"2026-06-17","nextPromo":null,"avgOpenRate":"9.0%","convType":"Leads Generated","convTotal":2,"promos":[{"date":"2026-06-17","label":"Promo 2","subject":"EM debt isn't a monolithic segment: Here's where to invest amidst higher dispersion today","sent":3917,"delivered":3795,"opens":341,"openRate":"9.0%","clicks":16,"ctr":"0.4%","ctor":"4.69%","conv":2}]}};
+
 const typeMeta = {
   "White Paper":       { cls: "type-wp",    lbl: "WHITE PAPER" },
   "Sponsored Content": { cls: "type-sc",    lbl: "SPONSORED" },
@@ -324,6 +361,39 @@ document.getElementById('k-wp').textContent = programs.filter(p => p.type === 'W
 document.getElementById('k-leads').textContent = programs.filter(p => p.type === 'White Paper' && p.leads != null).reduce((s,p) => s + p.leads, 0).toLocaleString();
 document.getElementById('k-regs').textContent = programs.filter(p => p.type === 'Webinar').reduce((s,p) => s + (p.leads || 0), 0).toLocaleString();
 
+// ===== Campaign panel =====
+programs.forEach((p, i) => p._i = i);
+const expanded = new Set();
+const progKey = p => p.program + '||' + p.client;
+function campPanel(p) {
+  const c = campaigns[progKey(p)];
+  if (!c) return `<div class="camp-empty">No promo activity logged yet — this program hasn't appeared in the P&amp;I email data.</div>`;
+  const isLeads = c.convType === 'Leads Generated';
+  const convUnit = isLeads ? 'leads' : 'regs';
+  const convTxt = (c.convTotal != null)
+    ? `${c.convTotal.toLocaleString()} <span class="unit">${convUnit}</span>`
+    : '<span class="unit">not tracked per-email</span>';
+  const nextTxt = c.nextPromo ? fmtDate(c.nextPromo) : '<span class="unit">none scheduled</span>';
+  const sum = `<div class="camp-sum">
+    <div class="m">Promos sent<b>${c.promosSent}</b></div>
+    <div class="m">Last promo<b>${fmtDate(c.lastPromo)}</b></div>
+    <div class="m">Next promo<b>${nextTxt}</b></div>
+    <div class="m">Avg open rate<b>${c.avgOpenRate}</b></div>
+    <div class="m">Email-attributed<b>${convTxt}</b></div>
+  </div>`;
+  const rows = c.promos.map(pr => {
+    const isReplay = /replay/i.test(pr.label);
+    return `<div class="promo-item">
+      <div class="promo-date">${fmtDate(pr.date)}</div>
+      <div><span class="promo-label${isReplay ? ' replay' : ''}">${pr.label}</span><div class="promo-subj" title="${(pr.subject||'').replace(/"/g,'&quot;')}">${pr.subject}</div></div>
+      <div class="promo-metric"><span class="lbl">Open rate</span><b>${pr.openRate}</b></div>
+      <div class="promo-metric"><span class="lbl">CTOR</span><b>${pr.ctor}</b></div>
+      <div class="promo-metric"><span class="lbl">${isLeads ? 'Leads' : 'Regs'}</span><b>${pr.conv != null ? pr.conv.toLocaleString() : '—'}</b></div>
+    </div>`;
+  }).join('');
+  return `<div class="camp-wrap">${sum}<div class="camp-hdr">Promo history · ${c.promos.length} email${c.promos.length !== 1 ? 's' : ''}</div>${rows}<div class="camp-note">Source: P&amp;I “Email Data and KPI Input” Smartsheet. Open rate = real opens ÷ delivered; CTOR = clicks ÷ opens. Email-attributed conversions may differ from the program's total (which also includes other channels).</div></div>`;
+}
+
 // Table render + sort
 let sortKey = 'leads', sortDir = -1;
 function render() {
@@ -336,16 +406,26 @@ function render() {
   document.getElementById('tbody').innerHTML = rows.map(p => {
     const tm = typeMeta[p.type] || { cls: 'type-sc', lbl: p.type.toUpperCase() };
     const progCell = p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.program} ↗</a>` : p.program;
-    return `<tr>
-      <td class="prog" data-label="Program">${progCell}</td>
+    const open = expanded.has(p._i);
+    return `<tr class="prog-row${open ? ' open' : ''}" data-i="${p._i}">
+      <td class="prog" data-label="Program"><span class="caret">▶</span>${progCell}</td>
       <td class="client" data-label="Client">${p.client}</td>
       <td data-label="Type"><span class="type-pill ${tm.cls}">${tm.lbl}</span></td>
       <td data-label="Launch" style="white-space:nowrap;color:#475569">${fmtDate(p.launch)}</td>
       <td data-label="Leads / Regs">${leadsCell(p)}</td>
       <td data-label="Promo" class="promo ${fmtPromo(p) === '—' ? 'none' : ''}">${fmtPromo(p)}</td>
-    </tr>`;
+    </tr>
+    <tr class="camp" data-i="${p._i}"${open ? '' : ' style="display:none"'}><td colspan="6">${campPanel(p)}</td></tr>`;
   }).join('');
 }
+document.getElementById('tbody').addEventListener('click', e => {
+  if (e.target.closest('a')) return;
+  const tr = e.target.closest('tr.prog-row');
+  if (!tr) return;
+  const i = +tr.dataset.i;
+  if (expanded.has(i)) expanded.delete(i); else expanded.add(i);
+  render();
+});
 document.querySelectorAll('#tbl th').forEach(th => th.addEventListener('click', () => {
   const k = th.dataset.k;
   if (k === sortKey) sortDir *= -1; else { sortKey = k; sortDir = (k === 'leads' || k === 'launch') ? -1 : 1; }
