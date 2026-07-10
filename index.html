@@ -266,9 +266,9 @@ let programs = [
   { program: "Optimizing OCIO Strategy", client: "Fidelity ICG, Mercer, U.S. Bancorp Asset Management, Aon", type: "Webinar", launch: "2026-04-15", leads: 879, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/optimizing-ocio-strategy/" },
   { program: "A Granular View on Global Infrastructure", client: "abrdn, I Squared Capital", type: "Webinar", launch: "2026-05-13", leads: 230, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-granular-view-global-infrastructure/" },
   { program: "Fixed Income: A Supportive Ballast", client: "Fidelity ICG, Morgan Stanley Investment Management, Federated Hermes, MFS Investment Management", type: "Webinar", launch: "2026-06-17", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-fixed-income-supportive-ballast/" },
-  { program: "Private Equity: Meeting the Moment", client: "S&P Dow Jones Indices, Mercer, Morningstar", type: "Webinar", launch: "2026-07-15", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Private Equity: Meeting the Moment", client: "S&P Dow Jones Indices, Mercer, Morningstar", type: "Webinar", launch: "2026-07-15", leads: null, views: null, promoStart: "", promoEnd: "", url: "https://www.pionline.com/partner-content/pi-private-equity-meeting-the-moment/" },
   { program: "Direct Lending", client: "Fidelity ICG, Morgan Stanley Investment Management", type: "Webinar", launch: "2026-08-12", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
-  { program: "Pension Derisking: Planning the Forward Journey", client: "sponsor 1, sponsor 2, sponsor 3, sponsor 4", type: "Webinar", launch: "2026-09-09", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Pension Derisking: Planning the Forward Journey", client: "TBD", type: "Webinar", launch: "2026-09-09", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "A Strategic Shift Forward in ETF Usage", client: "Invesco, State Street Investment Management, sponsor 3", type: "Webinar", launch: "2026-09-16", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "Emerging Markets", client: "sponsor 1, sponsor 2, sponsor 3", type: "Webinar", launch: "2026-10-14", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "Bringing Alternatives in DC", client: "Alliance Bernstein, Brookfield Asset Management, sponsor 3", type: "Webinar", launch: "2026-11-10", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
@@ -357,11 +357,11 @@ render();
 function timeToSec(t){ const [m,s]=t.split(':').map(Number); return m*60+s; }
 const PI_BAND=0.15;
 const piEngagement=[
-  { title:"How a Long-Only Growth Investor Navigates the AI Era", type:"Partner Content", benchPV30:1971, pv7:520, time:"2:07", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-how-a-long-only-growth-investor-navigates-the-ai-era/" },
-  { title:"Systematic Global Macro Is Having a Moment", type:"Partner Content", benchPV30:1971, pv7:435, time:"0:32", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-systematic-global-macro-is-having-a-moment/" },
-  { title:"Fixed Income – Supportive Ballast", type:"Partner Content", benchPV30:1971, pv7:382, time:"1:10", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-fixed-income-supportive-ballast/" },
-  { title:"Understanding True Drivers of Private-Market Portfolio Returns", type:"Partner Content", benchPV30:1971, pv7:102, time:"3:35", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-uderstanding-true-drivers-of-private-market-portfolio-returns/" },
-  { title:"Could It Be Time for a Resurgence in Quality?", type:"Partner Content", benchPV30:1971, pv7:74, time:"1:06", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-could-it-be-time-for-resurgence-in-quality/" },
+  { title:"How a Long-Only Growth Investor Navigates the AI Era", type:"Partner Content", benchPV30:1971, pv7:528, time:"1:33", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-how-a-long-only-growth-investor-navigates-the-ai-era/" },
+  { title:"Systematic Global Macro Is Having a Moment", type:"Partner Content", benchPV30:1971, pv7:449, time:"0:27", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-systematic-global-macro-is-having-a-moment/" },
+  { title:"Fixed Income – Supportive Ballast", type:"Partner Content", benchPV30:1971, pv7:384, time:"1:55", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-fixed-income-supportive-ballast/" },
+  { title:"Understanding True Drivers of Private-Market Portfolio Returns", type:"Partner Content", benchPV30:1971, pv7:98, time:"3:36", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-uderstanding-true-drivers-of-private-market-portfolio-returns/" },
+  { title:"Could It Be Time for a Resurgence in Quality?", type:"Partner Content", benchPV30:1971, pv7:75, time:"1:47", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-could-it-be-time-for-resurgence-in-quality/" },
 ];
 const piPacing=[];
 const piPacingMeta={ reportThrough:"6/25 (latest received)", headline:"Latest PIO Pacing report (through 6/25, from Nikola Radovanovic) flagged 1 line item pacing behind. The xlsx is a binary attachment and was not machine-readable via the connector this run — line-item detail pending." };
