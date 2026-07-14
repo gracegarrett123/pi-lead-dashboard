@@ -446,11 +446,11 @@ const piEngagement=[
 ];
 const piPacing=[];
 const piPacingMeta={ reportThrough:"7/9 (latest received)", headline:"Latest PIO Pacing report (through 7/9, from Nikola Radovanovic) reports all line items pacing well \u2014 no delivery flags. The xlsx is a binary attachment and was not machine-readable via the connector this run \u2014 line-item detail pending." };
-const piMonthAsOf="Jul 8";
+const piMonthAsOf="Jul 13";
 const piMonth=[
-  { title:"Fixed Income: A Supportive Ballast", pub:"Jun 15", daysLive:23, pv:1617, benchPV30:1971, url:"https://www.pionline.com/partner-content/pi-fixed-income-supportive-ballast/" },
+  { title:"Fixed Income: A Supportive Ballast", pub:"Jun 15", daysLive:28, pv:1834, benchPV30:1971, url:"https://www.pionline.com/partner-content/pi-fixed-income-supportive-ballast/" },
 ];
-const piMonthNote="P&I sponsored/custom stories published in the last 30 days, from the manually-uploaded 30-day Tableau Content Extract (metrics as of Jul 8; days-live graded to that date). Fixed Income is the only P&I sponsored story in the extract with gradeable volume; excluded — too low to grade: “Private Equity: Meeting the Moment” (~3 pageviews). Note: Systematic Global Macro and the Long-Only AI-Era read are tracked via the Adobe feed (see the Last-7-Days engagement table above) and do not appear as Sponsored/Custom in this Tableau extract.";
+const piMonthNote="P&I sponsored/custom stories published in the last 30 days, from the manually-uploaded Tableau Content Extract (metrics as of Jul 13; days-live graded to that date). Fixed Income has now matured to 28 days live and lands essentially exactly on its 1,971 Partner Content benchmark (1,834 PV vs ~1,840 expected) — on pace. Four P&I reads are excluded as too new or too low to grade: “Private Equity: Meeting the Moment” (relaunched Jul 13, 141 PV, 0 days live — the original Jun 19 posting drew only 3 PV), “Navigating the AI Revolution for Long-Term Growth” (Jul 13, 82 PV, 0 days live), and “Expanding Access & Innovation in Retirement” (Jul 10, 1 PV, 3 days live). Re-grade these once they clear ~5 days live.";
 function piStatus(pct){
   if(pct>PI_BAND) return { label:"Overperforming", css:"background:#f0fdf4;color:#166534" };
   if(pct<-PI_BAND) return { label:"Underperforming", css:"background:#fff7ed;color:#c2410c" };
