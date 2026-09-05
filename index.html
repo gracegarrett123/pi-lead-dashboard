@@ -438,11 +438,11 @@ render();
 function timeToSec(t){ const [m,s]=t.split(':').map(Number); return m*60+s; }
 const PI_BAND=0.15;
 const piEngagement=[
-  { title:"Rising Fuel Prices, Infrastructure Resilience", type:"SCP", benchPV30:2252, pv7:1061, time:"1:16", benchTime:"3:28", url:"https://www.pionline.com/sponsored-content/pi-rising-fuel-prices-infrastructure-resilience/" },
-  { title:"Private Markets What The Evidence Shows", type:"Partner Content", benchPV30:1971, pv7:673, time:"1:59", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-private-markets-what-the-evidence-shows/" },
-  { title:"Direct Lending: Selective Exposure", type:"Partner Content", benchPV30:1971, pv7:424, time:"3:07", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-direct-lending-selective-exposure/" },
-  { title:"Rethinking Diversification Trade Finance", type:"Partner Content", benchPV30:1971, pv7:127, time:"1:34", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-rethinking-diversification-trade-finance/" },
-  { title:"Institutional ETF Adoption", type:"Partner Content", benchPV30:1971, pv7:112, time:"1:55", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-institutional-eft-adoption/" },
+  { title:"Rising Fuel Prices, Infrastructure Resilience", type:"SCP", benchPV30:2252, pv7:1069, time:"1:09", benchTime:"3:28", url:"https://www.pionline.com/sponsored-content/pi-rising-fuel-prices-infrastructure-resilience/" },
+  { title:"Private Markets What The Evidence Shows", type:"Partner Content", benchPV30:1971, pv7:715, time:"2:01", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-private-markets-what-the-evidence-shows/" },
+  { title:"Direct Lending: Selective Exposure", type:"Partner Content", benchPV30:1971, pv7:426, time:"3:08", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-direct-lending-selective-exposure/" },
+  { title:"Rethinking Diversification Trade Finance", type:"Partner Content", benchPV30:1971, pv7:160, time:"1:20", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-rethinking-diversification-trade-finance/" },
+  { title:"Institutional ETF Adoption", type:"Partner Content", benchPV30:1971, pv7:119, time:"1:55", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-institutional-eft-adoption/" },
 ];
 const piPacing=[
   { lineItem:"PIO_CFA-Institute_Q3_ROS_LB_01_270826 (263043)", advertiser:"CFA Institute - CFA Institute - 100826|A4", pacingRate:55.15, contracted:60000, endDate:"2026-09-30" },
@@ -456,7 +456,7 @@ const piPacing=[
   { lineItem:"PIO_Wellington-Management-Company-LLP_ROS_INTERSTITIAL_050826 (260370)", advertiser:"Wellington Management - Wellington Management Company LLP - 100191|A8", pacingRate:108.27, contracted:12500, endDate:"2026-08-31" },
   { lineItem:"PIO_Athene_ROS_REC_01_010826 (259954)", advertiser:"Athene - Athene", pacingRate:108.59, contracted:23611, endDate:"2026-08-31" },
 ];
-const piPacingMeta={ reportThrough:"8/27", headline:"Latest PIO Pacing report is through 8/27 (email from Nikola Radovanovic, PI/sales/Reports2026/Pacing Reports/August) — read directly from the emailed .xlsx attachment. Two new CFA Institute Q3 line items appeared this period (LB_01 at 55.2%, 300x250 at 86.1%, REC_01 at 106.4%). Four Direct Sold line items are pacing behind 90%: CFA Institute LB_01 (55.2%), Schroders In-Article 030826 (57.8%, up from 54.8% on 8/20), Morgan Stanley Masthead-Video (75.5%, down from 79.7%), and CFA Institute 300x250 (86.1%). Athene REC_01 eased from 116.0% to 108.6%; Wellington INTERSTITIAL from 117.7% to 108.3%. Tortoise Capital REC_01 130726 has rolled off and is excluded. Two Morgan Stanley line items (REC_01, 300x250) are Added Value, not Direct Sold, and are excluded." };
+const piPacingMeta={ reportThrough:"8/27 (latest report through 9/3 not yet readable)", headline:"A newer PIO Pacing report (through 9/3, emailed 9/4 by Nikola Radovanovic) has landed, but the .xlsx could not be read this run — the PI/sales/Reports2026/Pacing Reports/September SharePoint folder wasn't reachable via search this run, unlike the prior August folder. Figures below are retained from the last successfully read report, through 8/27. Two new CFA Institute Q3 line items appeared that period (LB_01 at 55.2%, 300x250 at 86.1%, REC_01 at 106.4%). Four Direct Sold line items were pacing behind 90% as of 8/27: CFA Institute LB_01 (55.2%), Schroders In-Article 030826 (57.8%, up from 54.8% on 8/20), Morgan Stanley Masthead-Video (75.5%, down from 79.7%), and CFA Institute 300x250 (86.1%). Athene REC_01 eased from 116.0% to 108.6%; Wellington INTERSTITIAL from 117.7% to 108.3%. Tortoise Capital REC_01 130726 has rolled off and is excluded. Two Morgan Stanley line items (REC_01, 300x250) are Added Value, not Direct Sold, and are excluded." };
 const piMonthAsOf="Jul 13";
 const piMonth=[
   { title:"Systematic Global Macro Is Having a Moment", pub:"Jun 15", daysLive:28, pv:2787, benchPV30:1971, url:"https://www.pionline.com/partner-content/pi-systematic-global-macro-is-having-a-moment/" },
