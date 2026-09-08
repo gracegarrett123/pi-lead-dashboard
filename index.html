@@ -302,7 +302,7 @@ let programs = [
   { program: "Pension Derisking: Planning the Forward Journey", client: "TBD", type: "Webinar", launch: "2026-09-09", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "A Strategic Shift Forward in ETF Usage", client: "Invesco, State Street Investment Management", type: "Webinar", launch: "2026-09-16", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "Emerging Markets", client: "TBD", type: "Webinar", launch: "2026-10-14", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
-  { program: "Bringing Alternatives in DC", client: "Alliance Bernstein, Brookfield Asset Management, sponsor 3", type: "Webinar", launch: "2026-11-10", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
+  { program: "Bringing Alternatives in DC", client: "Alliance Bernstein, Brookfield Asset Management, sponsor 3", type: "Webinar", launch: "", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "Systematic Strategies: An Expanding Toolkit", client: "Fidelity ICG, Morgan Stanley Investment Management, sponsor 3, sponsor 4", type: "Webinar", launch: "2026-12-09", leads: null, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "When Retirement is Delayed, Employers Pay: Workforce Costs and DC Solutions", client: "Principal", type: "Webinar", launch: "", leads: 260, views: null, promoStart: "", promoEnd: "", url: "" },
   { program: "Emerging Markets", client: "Eastspring Investments, RBC Global Asset Management, Federated Hermes", type: "Webinar", launch: "", leads: 315, views: null, promoStart: "", promoEnd: "", url: "" },
@@ -438,11 +438,11 @@ render();
 function timeToSec(t){ const [m,s]=t.split(':').map(Number); return m*60+s; }
 const PI_BAND=0.15;
 const piEngagement=[
-  { title:"Rising Fuel Prices, Infrastructure Resilience", type:"SCP", benchPV30:2252, pv7:1119, time:"1:10", benchTime:"3:28", url:"https://www.pionline.com/sponsored-content/pi-rising-fuel-prices-infrastructure-resilience/" },
-  { title:"Private Markets What The Evidence Shows", type:"Partner Content", benchPV30:1971, pv7:712, time:"1:23", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-private-markets-what-the-evidence-shows/" },
-  { title:"Direct Lending: Selective Exposure", type:"Partner Content", benchPV30:1971, pv7:435, time:"3:34", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-direct-lending-selective-exposure/" },
+  { title:"Rising Fuel Prices, Infrastructure Resilience", type:"SCP", benchPV30:2252, pv7:1082, time:"0:53", benchTime:"3:28", url:"https://www.pionline.com/sponsored-content/pi-rising-fuel-prices-infrastructure-resilience/" },
+  { title:"Private Markets What The Evidence Shows", type:"Partner Content", benchPV30:1971, pv7:742, time:"1:07", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-private-markets-what-the-evidence-shows/" },
+  { title:"Direct Lending: Selective Exposure", type:"Partner Content", benchPV30:1971, pv7:425, time:"2:44", benchTime:"4:19", url:"https://www.pionline.com/partner-content/pi-direct-lending-selective-exposure/" },
   { title:"Rethinking Diversification Trade Finance", type:"Partner Content", benchPV30:1971, pv7:165, time:"1:20", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-rethinking-diversification-trade-finance/" },
-  { title:"Guaranteed Income Solutions Retirement Security", type:"Partner Content", benchPV30:1971, pv7:109, time:"0:37", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-guaranteed-income-solutions-retirement-security/" },
+  { title:"Guaranteed Income Solutions Retirement Security", type:"Partner Content", benchPV30:1971, pv7:110, time:"0:37", benchTime:"4:19", url:"https://www.pionline.com/white-papers/pi-guaranteed-income-solutions-retirement-security/" },
 ];
 const piPacing=[
   { lineItem:"PIO_Heitman_Q4_ROS_LB_01_010926 (234145)", advertiser:"Heitman Prop / Parent - Heitman", pacingRate:37.78, contracted:25000, endDate:"2026-09-30" },
